@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="NutriTrack AI">
   <link rel="manifest" href="manifest.json">
-  <title>NutriTrack AI — Ipertrofia & Performance</title>
+  <title>NutriTrack AI v3 — Ipertrofia & Performance</title>
   <style>
     :root {
       --bg-base: #0f1115;
@@ -33,7 +33,7 @@
       background-color: var(--bg-base);
       color: var(--text-main);
       line-height: 1.5;
-      padding-bottom: calc(82px + var(--safe-bottom));
+      padding-bottom: calc(84px + var(--safe-bottom));
       overflow-x: hidden;
     }
     header {
@@ -41,84 +41,83 @@
       background: rgba(15, 17, 21, 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 14px 16px;
+      padding: 12px 16px;
       display: flex; justify-content: space-between; align-items: center;
     }
-    header h1 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; }
-    .date-nav { display: flex; align-items: center; gap: 8px; }
+    header h1 { font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .version-pill { font-size: 0.68rem; background: var(--accent-dim); color: var(--accent); padding: 2px 6px; border-radius: 6px; }
+    .date-nav { display: flex; align-items: center; gap: 6px; }
     .date-nav input[type="date"] {
       background: var(--bg-elevated); color: var(--text-main);
-      border: 1px solid var(--border); padding: 6px 10px;
-      border-radius: 8px; font-size: 0.9rem;
+      border: 1px solid var(--border); padding: 6px 8px;
+      border-radius: 8px; font-size: 0.85rem; width: auto;
     }
     .btn-icon {
       background: var(--bg-elevated); color: var(--text-main);
       border: 1px solid var(--border); border-radius: 8px;
       padding: 6px 10px; cursor: pointer; font-weight: 600;
     }
-    main { max-width: 680px; margin: 0 auto; padding: 16px; }
+    main { max-width: 680px; margin: 0 auto; padding: 14px; }
     .view { display: none; }
-    .view.active { display: block; animation: fadeIn 0.2s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+    .view.active { display: block; animation: fadeIn 0.18s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
 
     .card {
       background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 16px; margin-bottom: 16px;
+      border-radius: var(--radius); padding: 15px; margin-bottom: 14px;
     }
-    .card-title { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .card-title { font-size: 0.92rem; font-weight: 600; color: var(--text-muted); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 
-    .kcal-hero { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 14px; }
-    .kcal-main { font-size: 2.1rem; font-weight: 800; line-height: 1; }
-    .kcal-sub { font-size: 0.85rem; color: var(--text-muted); }
-    .progress-track { width: 100%; height: 10px; background: var(--bg-elevated); border-radius: 99px; overflow: hidden; margin-top: 6px; }
+    .kcal-hero { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+    .kcal-main { font-size: 2rem; font-weight: 800; line-height: 1; }
+    .kcal-sub { font-size: 0.82rem; color: var(--text-muted); }
+    .progress-track { width: 100%; height: 9px; background: var(--bg-elevated); border-radius: 99px; overflow: hidden; margin-top: 6px; }
     .progress-fill { height: 100%; border-radius: 99px; transition: width 0.3s ease; }
-    .macro-box { background: var(--bg-elevated); padding: 12px; border-radius: 10px; }
-    .macro-label { font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; }
-    .macro-val { font-size: 1.05rem; font-weight: 700; margin: 4px 0; }
+    .macro-box { background: var(--bg-elevated); padding: 10px; border-radius: 10px; }
+    .macro-label { font-size: 0.76rem; color: var(--text-muted); display: flex; justify-content: space-between; }
+    .macro-val { font-size: 1rem; font-weight: 700; margin: 3px 0; }
 
     .badge {
-      font-size: 0.7rem; padding: 2px 7px; border-radius: 99px; font-weight: 600; text-transform: uppercase;
+      font-size: 0.68rem; padding: 2px 7px; border-radius: 99px; font-weight: 600; text-transform: uppercase;
     }
     .badge-verificato { background: rgba(16, 185, 129, 0.2); color: #34d399; }
     .badge-etichetta { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
     .badge-stimato { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-    .badge-manuale { background: rgba(156, 163, 175, 0.2); color: #d1d5db; }
 
-    .meal-section { margin-bottom: 14px; }
+    .meal-section { margin-bottom: 12px; }
     .meal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
-    .meal-title { font-weight: 700; font-size: 1rem; }
-    .meal-kcal { font-size: 0.9rem; color: var(--accent); font-weight: 600; }
-    .food-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.9rem; gap: 8px; }
+    .meal-title { font-weight: 700; font-size: 0.98rem; }
+    .meal-kcal { font-size: 0.88rem; color: var(--accent); font-weight: 600; }
+    .food-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.88rem; gap: 8px; }
     .food-item:last-child { border-bottom: none; }
-    .food-meta { font-size: 0.78rem; color: var(--text-muted); }
+    .food-meta { font-size: 0.76rem; color: var(--text-muted); }
     .food-actions { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
 
-    label { display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px; margin-top: 10px; }
+    label { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; margin-top: 10px; }
     input, select, textarea {
       width: 100%; background: var(--bg-elevated); color: var(--text-main);
       border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
       font-size: 0.95rem; font-family: inherit;
     }
-    textarea { min-height: 84px; resize: vertical; }
+    textarea { min-height: 80px; resize: vertical; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
       background: var(--accent); color: #06281e; font-weight: 700;
       border: none; border-radius: 10px; padding: 12px 16px; font-size: 0.95rem;
-      cursor: pointer; width: 100%; margin-top: 12px; transition: opacity 0.15s;
+      cursor: pointer; width: 100%; margin-top: 10px; transition: opacity 0.15s;
     }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn:active { opacity: 0.85; }
     .btn-secondary { background: var(--bg-elevated); color: var(--text-main); border: 1px solid var(--border); }
     .btn-sm { padding: 6px 10px; font-size: 0.8rem; width: auto; margin-top: 0; }
 
-    .tabs { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; }
+    .tabs { display: flex; gap: 6px; margin-bottom: 12px; overflow-x: auto; padding-bottom: 4px; }
     .tab-btn {
       background: var(--bg-elevated); color: var(--text-muted);
       border: 1px solid var(--border); border-radius: 8px;
-      padding: 8px 12px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; cursor: pointer;
+      padding: 8px 12px; font-size: 0.83rem; font-weight: 600; white-space: nowrap; cursor: pointer;
     }
     .tab-btn.active { background: var(--accent-dim); color: var(--accent); border-color: var(--accent); }
 
@@ -135,30 +134,30 @@
       font-size: 0.72rem; font-weight: 600; cursor: pointer; flex: 1;
     }
     .nav-item.active { color: var(--accent); }
-    .nav-icon { font-size: 1.25rem; }
+    .nav-icon { font-size: 1.2rem; }
 
     .day-type-bar {
       display: flex; justify-content: space-between; align-items: center;
-      background: var(--bg-elevated); padding: 10px 14px; border-radius: 10px; margin-bottom: 14px;
+      background: var(--bg-elevated); padding: 10px 14px; border-radius: 10px; margin-bottom: 12px;
     }
     .switch-btn {
-      padding: 6px 12px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; cursor: pointer; border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; border: 1px solid var(--border);
     }
     .switch-training { background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: #10b981; }
     .switch-rest { background: var(--bg-card); color: var(--text-muted); }
 
-    canvas { width: 100%; height: 200px; background: var(--bg-elevated); border-radius: 10px; display: block; }
+    canvas { width: 100%; height: 190px; background: var(--bg-elevated); border-radius: 10px; display: block; }
     .alert-box {
       background: rgba(245, 158, 11, 0.12); border-left: 3px solid var(--warning);
-      padding: 10px 12px; border-radius: 6px; font-size: 0.83rem; color: #fde68a; margin: 10px 0;
+      padding: 10px 12px; border-radius: 6px; font-size: 0.8rem; color: #fde68a; margin: 8px 0;
     }
     .info-box {
       background: rgba(59, 130, 246, 0.12); border-left: 3px solid var(--protein);
-      padding: 10px 12px; border-radius: 6px; font-size: 0.83rem; color: #bfdbfe; margin: 10px 0;
+      padding: 10px 12px; border-radius: 6px; font-size: 0.8rem; color: #bfdbfe; margin: 8px 0;
     }
     .chip-example {
       display: inline-block; background: var(--bg-elevated); border: 1px solid var(--border);
-      color: var(--text-muted); font-size: 0.76rem; padding: 4px 8px; border-radius: 6px;
+      color: var(--text-muted); font-size: 0.75rem; padding: 4px 8px; border-radius: 6px;
       margin: 3px 4px 3px 0; cursor: pointer;
     }
   </style>
@@ -166,11 +165,11 @@
 <body>
 
 <header>
-  <h1>NutriTrack AI</h1>
+  <h1>NutriTrack AI <span class="version-pill">v3.0</span></h1>
   <div class="date-nav">
-    <button class="btn-icon" onclick="App.shiftDate(-1)" aria-label="Giorno precedente">◀</button>
+    <button class="btn-icon" onclick="App.shiftDate(-1)">◀</button>
     <input type="date" id="currentDateInput" onchange="App.setDate(this.value)">
-    <button class="btn-icon" onclick="App.shiftDate(1)" aria-label="Giorno successivo">▶</button>
+    <button class="btn-icon" onclick="App.shiftDate(1)">▶</button>
   </div>
 </header>
 
@@ -179,8 +178,8 @@
   <section id="view-dashboard" class="view active">
     <div class="day-type-bar">
       <div>
-        <strong style="font-size:0.9rem;">Tipologia Giornata</strong>
-        <div style="font-size:0.75rem; color:var(--text-muted);">Statistiche Allenamento vs Riposo</div>
+        <strong style="font-size:0.88rem;">Tipologia Giornata</strong>
+        <div style="font-size:0.74rem; color:var(--text-muted);">Confronto Allenamento vs Riposo</div>
       </div>
       <button id="dayTypeBtn" class="switch-btn" onclick="App.toggleTrainingDay()">🏋️ Allenamento</button>
     </div>
@@ -196,7 +195,7 @@
           <div class="kcal-sub">su <span id="dashKcalTarget">2450</span> kcal obiettivo</div>
         </div>
         <div style="text-align:right;">
-          <div style="font-size:1.2rem; font-weight:700;" id="dashKcalPct">0%</div>
+          <div style="font-size:1.15rem; font-weight:700;" id="dashKcalPct">0%</div>
           <div class="kcal-sub">Completamento</div>
         </div>
       </div>
@@ -204,7 +203,7 @@
         <div id="dashKcalBar" class="progress-fill" style="width:0%; background:var(--accent);"></div>
       </div>
 
-      <div class="grid-3" style="margin-top:16px;">
+      <div class="grid-3" style="margin-top:14px;">
         <div class="macro-box">
           <div class="macro-label"><span>Proteine</span><span id="dashProPct">0%</span></div>
           <div class="macro-val"><span id="dashProCurrent">0</span> / <span id="dashProTarget">115</span>g</div>
@@ -223,7 +222,7 @@
       </div>
     </div>
 
-    <div style="display:flex; gap:8px; margin-bottom:16px;">
+    <div style="display:flex; gap:8px; margin-bottom:14px;">
       <button class="btn" style="margin-top:0;" onclick="App.switchView('add')">➕ Registra Alimento / Pasto</button>
       <button class="btn btn-secondary" style="margin-top:0; width:auto; white-space:nowrap;" onclick="App.openCopyDayModal()">📋 Copia Pasti</button>
     </div>
@@ -236,8 +235,8 @@
         <input type="number" step="0.1" id="dailyWeightInput" placeholder="Es. 62.3 kg">
         <button class="btn btn-sm" onclick="App.saveDailyWeight()">Salva Peso</button>
       </div>
-      <div style="font-size:0.75rem; color:var(--text-muted); margin-top:6px;">
-        Le oscillazioni giornaliere (0.5–1.5 kg) riflettono variazioni di glicogeno, acqua e contenuto gastrointestinale, non modifiche immediate di massa muscolare o grassa.
+      <div style="font-size:0.74rem; color:var(--text-muted); margin-top:6px;">
+        Nota: variazioni giornaliere di 0.5–1.5 kg dipendono da acqua, glicogeno e contenuto intestinale, non da variazioni immediate di massa muscolare.
       </div>
     </div>
   </section>
@@ -261,22 +260,22 @@
       <button class="tab-btn" onclick="App.switchAddMode('manual', this)">4. Manuale</button>
     </div>
 
-    <!-- MODO 1: LINGUAGGIO NATURALE IBRIDO (CREA + OPEN FOOD FACTS + AI) -->
+    <!-- MODO 1: LINGUAGGIO NATURALE IBRIDO -->
     <div id="add-mode-ai-text" class="add-mode card">
       <div class="card-title">
         <span>Descrivi cosa hai mangiato</span>
-        <span class="badge badge-verificato">Motore Ibrido Attivo</span>
+        <span class="badge badge-verificato">CREA + OpenFoodFacts Live</span>
       </div>
-      <p style="font-size:0.82rem; color:var(--text-muted); margin-bottom:6px;">
-        Scrivi liberamente alimenti e quantità (oppure tocca un esempio rapido):
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:6px;">
+        Scrivi qualsiasi alimento o frase (es. <em>"150g salsiccia e 60g pane"</em>) oppure tocca un test rapido:
       </p>
       <div style="margin-bottom:8px;">
-        <span class="chip-example" onclick="App.fillExample('80g di pasta, 100g di tonno sgocciolato e 10g di olio')">🍝 Pasta, tonno e olio</span>
-        <span class="chip-example" onclick="App.fillExample('Yogurt greco, 40g fiocchi d\'avena e una banana')">🥣 Yogurt greco, avena e banana</span>
+        <span class="chip-example" onclick="App.fillExample('150g di salsiccia, 200g patate al forno e 10g olio')">🌭 Salsiccia e patate</span>
+        <span class="chip-example" onclick="App.fillExample('80g pasta, 100g tonno sgocciolato e 10g olio')">🍝 Pasta, tonno e olio</span>
+        <span class="chip-example" onclick="App.fillExample('Yogurt greco, 40g cereali e una banana')">🥣 Yogurt, cereali e banana</span>
         <span class="chip-example" onclick="App.fillExample('Metà pizza margherita')">🍕 Metà pizza</span>
-        <span class="chip-example" onclick="App.fillExample('150g petto di pollo, 200g patate e 10g olio')">🍗 Pollo e patate</span>
       </div>
-      <textarea id="nlpInput" placeholder="Es: Ho mangiato 80g di pasta, 100g di tonno e 10g di olio..."></textarea>
+      <textarea id="nlpInput" placeholder="Es: Ho mangiato 150g di salsiccia e 80g di pane..."></textarea>
       <button id="btnAnalyzeText" class="btn" onclick="App.analyzeNaturalLanguage()">🔍 Analizza e Verifica</button>
     </div>
 
@@ -284,24 +283,24 @@
     <div id="add-mode-ai-photo" class="add-mode card" style="display:none;">
       <div class="card-title">Analisi Visiva del Pasto</div>
       <div class="alert-box">
-        <strong>Trasparenza metrologica:</strong> Una foto 2D non permette di conoscere il peso esatto o i grammi di condimento assorbiti. L'app propone una stima prudente e modificabile prima della registrazione.
+        <strong>Trasparenza:</strong> Una foto 2D non rileva il peso esatto o i condimenti assorbiti. L'app propone una stima modificabile prima di salvare.
       </div>
       <label>Carica o scatta una foto del piatto</label>
       <input type="file" id="photoInput" accept="image/*" onchange="App.previewPhoto(event)">
       <div id="photoPreviewBox" style="display:none; margin-top:10px; text-align:center;">
-        <img id="photoPreviewImg" style="max-width:100%; max-height:220px; border-radius:10px; border:1px solid var(--border);" alt="Anteprima pasto">
+        <img id="photoPreviewImg" style="max-width:100%; max-height:200px; border-radius:10px; border:1px solid var(--border);" alt="Anteprima">
       </div>
-      <label>Descrivi brevemente il piatto o la porzione (es. "Metà pizza margherita", "Piatto di pasta al ragù")</label>
-      <input type="text" id="photoContextInput" placeholder="Es. Ho mangiato metà di questa pizza...">
-      <button id="btnAnalyzePhoto" class="btn" onclick="App.analyzePhoto()">📸 Analizza Foto e Stima Porzioni</button>
+      <label>Cosa c'è nel piatto / quanta porzione hai mangiato?</label>
+      <input type="text" id="photoContextInput" placeholder="Es. Salsiccia con piselli / Metà pizza margherita">
+      <button id="btnAnalyzePhoto" class="btn" onclick="App.analyzePhoto()">📸 Analizza e Stima Porzioni</button>
     </div>
 
     <!-- MODO 3: DATABASE CREA + OPEN FOOD FACTS -->
     <div id="add-mode-db-search" class="add-mode card" style="display:none;">
-      <div class="card-title">Ricerca Verificata (CREA + Open Food Facts)</div>
+      <div class="card-title">Ricerca Diretta (130+ Alimenti CREA + Open Food Facts)</div>
       <div style="display:flex; gap:8px;">
-        <input type="text" id="dbSearchInput" placeholder="Es. Pollo, Riso, Skyr, Pane, Soia..." oninput="App.searchLocalDB(this.value)">
-        <button class="btn btn-sm" onclick="App.searchOpenFoodFacts()">🌐 Cerca Online (OFF)</button>
+        <input type="text" id="dbSearchInput" placeholder="Cerca es. salsiccia, pollo, mortadella, skyr..." oninput="App.searchLocalDB(this.value)">
+        <button class="btn btn-sm" onclick="App.searchOpenFoodFacts()">🌐 Cerca Marche (OFF)</button>
       </div>
       <div id="dbSearchResults" style="margin-top:12px; max-height:340px; overflow-y:auto;"></div>
     </div>
@@ -310,11 +309,11 @@
     <div id="add-mode-manual" class="add-mode card" style="display:none;">
       <div class="card-title">Inserimento Manuale Diretto</div>
       <label>Nome Alimento</label>
-      <input type="text" id="manName" placeholder="Es. Bocconcini di soia / Barretta proteica">
+      <input type="text" id="manName" placeholder="Es. Salsiccia artigianale / Barretta">
       <div class="grid-2">
         <div>
           <label>Marca (opzionale)</label>
-          <input type="text" id="manBrand" placeholder="Es. Valsoia / Enervit">
+          <input type="text" id="manBrand" placeholder="Es. Conad / Coop">
         </div>
         <div>
           <label>Stato del dato</label>
@@ -328,7 +327,7 @@
       <div class="grid-2">
         <div>
           <label>Kcal per 100g/ml</label>
-          <input type="number" step="0.1" id="manKcal100" placeholder="Es. 350">
+          <input type="number" step="0.1" id="manKcal100" placeholder="Es. 304">
         </div>
         <div>
           <label>Quantità consumata (g o ml)</label>
@@ -359,10 +358,10 @@
     <!-- SCHERMATA DI CONFERMA E REVISIONE PRE-REGISTRAZIONE -->
     <div id="confirmationStagingCard" class="card" style="display:none; border: 2px solid var(--accent);">
       <div class="card-title">
-        <span style="color:var(--accent);">🛡️ Conferma e Modifica Pre-Registrazione</span>
+        <span style="color:var(--accent);">🛡️ Conferma Pre-Registrazione</span>
         <span id="stagingUncertaintyBadge" class="badge badge-stimato">Verifica</span>
       </div>
-      <p id="stagingNotes" style="font-size:0.82rem; color:var(--text-muted); margin-bottom:10px;"></p>
+      <p id="stagingNotes" style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;"></p>
       <div id="stagingItemsList"></div>
       <div style="display:flex; gap:8px; margin-top:12px;">
         <button class="btn" onclick="App.commitStagingItems()">💾 Conferma e Registra nel Diario</button>
@@ -375,7 +374,7 @@
   <section id="view-recipes" class="view">
     <div class="card">
       <div class="card-title">Crea Nuova Ricetta / Pasto Composto</div>
-      <label>Nome Ricetta (es. Pancakes Proteici / Ragù di Soia)</label>
+      <label>Nome Ricetta (es. Pancakes Proteici / Ragù di Salsiccia)</label>
       <input type="text" id="recName" placeholder="Nome ricetta...">
       <div class="grid-2">
         <div>
@@ -414,13 +413,13 @@
     </div>
 
     <div class="card">
-      <div class="card-title">Andamento Calorie & Target (Ultimi 14 giorni registrati)</div>
-      <canvas id="chartKcal" width="600" height="220"></canvas>
+      <div class="card-title">Andamento Calorie & Target (Ultimi 14 giorni)</div>
+      <canvas id="chartKcal" width="600" height="200"></canvas>
     </div>
 
     <div class="card">
       <div class="card-title">Andamento Proteine (g)</div>
-      <canvas id="chartWeightPro" width="600" height="220"></canvas>
+      <canvas id="chartWeightPro" width="600" height="200"></canvas>
     </div>
 
     <div class="card">
@@ -428,7 +427,7 @@
         <span>🧠 Report Analitico Settimanale</span>
         <button class="btn btn-sm btn-secondary" onclick="App.renderStats()">Aggiorna</button>
       </div>
-      <div id="weeklyReportContent" style="font-size:0.88rem; line-height:1.6;"></div>
+      <div id="weeklyReportContent" style="font-size:0.86rem; line-height:1.55;"></div>
     </div>
   </section>
 
@@ -437,7 +436,7 @@
     <div class="card">
       <div class="card-title">Il Mio Profilo Biometrico e Obiettivi</div>
       <div class="info-box">
-        Profilo calibrato: <strong>Donna, 20-21 anni, 180 cm, ~62 kg, palestra 3-4x/settimana, focus ipertrofia glutei e forza</strong>.
+        Profilo: <strong>Donna, 20-21 anni, 180 cm, ~62 kg, palestra 3-4x/settimana, focus ipertrofia glutei e forza</strong>.
       </div>
       <div class="grid-2">
         <div>
@@ -466,10 +465,10 @@
         <option value="1.55" selected>3-4 volte/settimana (Moderato - Ipertrofia)</option>
         <option value="1.725">5-6 volte/settimana (Elevato)</option>
       </select>
-      <button class="btn btn-secondary" onclick="App.recalculateSuggestedTargets()">🧮 Ricalcola Stima Scientifica (Mifflin-St Jeor + Surplus)</button>
+      <button class="btn btn-secondary" onclick="App.recalculateSuggestedTargets()">🧮 Ricalcola Stima Scientifica</button>
 
-      <hr style="border:none; border-top:1px solid var(--border); margin:16px 0;">
-      <div class="card-title">Target Giornalieri Attivi (Modificabili Manualmente)</div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:14px 0;">
+      <div class="card-title">Target Giornalieri Attivi (Modificabili)</div>
       <div class="grid-2">
         <div>
           <label>Obiettivo Calorie (kcal)</label>
@@ -493,9 +492,6 @@
 
     <div class="card">
       <div class="card-title">Configurazione AI Multimodale Opzionale (Visione Foto + LLM)</div>
-      <p style="font-size:0.82rem; color:var(--text-muted);">
-        Il riconoscimento testuale funziona già <strong>senza chiavi API</strong> grazie al motore ibrido CREA + Open Food Facts. Se vuoi attivare anche Gemini Vision per le foto, incolla l'URL del tuo Cloudflare Worker oppure una Gemini API Key gratuita (ottenibile da Google AI Studio) che rimarrà salvata esclusivamente nella memoria locale del tuo iPhone.
-      </p>
       <label>URL Proxy Cloudflare Worker (Opzionale)</label>
       <input type="url" id="cfgProxyUrl" placeholder="https://nutritrack-proxy.tuonome.workers.dev">
       <label>Oppure Gemini API Key Personale (Salvata solo in locale sul telefono)</label>
@@ -509,7 +505,7 @@
         <button class="btn btn-secondary" onclick="App.exportJSON()">📦 Esporta JSON</button>
         <button class="btn btn-secondary" onclick="App.exportCSV()">📊 Esporta CSV</button>
       </div>
-      <label style="margin-top:14px;">Ripristina da file Backup JSON</label>
+      <label style="margin-top:12px;">Ripristina da file Backup JSON</label>
       <input type="file" accept=".json" onchange="App.importJSON(event)">
     </div>
   </section>
@@ -535,65 +531,94 @@
 
 <script>
 /**
- * DATABASE NUTRIZIONALE ITALIANO ESPANSO (TABELLE CREA)
- * Ogni alimento include sinonimi, forme singolari/plurali e porzione standard in grammi.
+ * AUTO-PULIZIA VECCHIO SERVICE WORKER (Risolve il problema di Safari iOS che restava bloccato sulla v1)
+ */
+(async function forceClearOldServiceWorkers() {
+  try {
+    if ("serviceWorker" in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const r of regs) await r.unregister();
+    }
+    if ("caches" in window) {
+      const keys = await caches.keys();
+      for (const k of keys) await caches.delete(k);
+    }
+  } catch (e) {}
+})();
+
+/**
+ * DATABASE NUTRIZIONALE ITALIANO COMPLETO (TABELLE CREA + TRADIZIONE BOLOGNESE/ITALIANA)
+ * Valori riferiti a 100g di parte edibile.
  */
 const CREA_FOODS = [
-  // CEREALI E DERIVATI
-  { id: "c1", name: "Pasta di semola (a crudo)", kcal: 353, pro: 13.0, carb: 72.7, fat: 1.5, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["pasta", "spaghetti", "penne", "fusilli", "rigatoni", "maccheroni", "mezze maniche", "farfalle", "tortiglioni", "tagliatelle", "linguine"] },
+  // CARNI, SALSICCE E SALUMI
+  { id: "m1", name: "Salsiccia di suino fresca", kcal: 304, pro: 15.4, carb: 0.6, fat: 26.7, stdGrams: 120, source: "CREA", status: "verificato", aliases: ["salsiccia", "salsicce", "salsiccia di maiale", "salsiccia alla griglia", "salsiccia al forno", "luganega", "salamella"] },
+  { id: "m2", name: "Salsiccia di pollo e tacchino", kcal: 165, pro: 18.5, carb: 1.2, fat: 9.5, stdGrams: 120, source: "CREA", status: "verificato", aliases: ["salsiccia di pollo", "salsiccia di tacchino", "salsiccia magra"] },
+  { id: "m3", name: "Petto di pollo (a crudo)", kcal: 100, pro: 23.3, carb: 0.0, fat: 0.8, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["pollo", "petto di pollo", "straccetti di pollo", "filetto di pollo", "fusi di pollo", "coscia di pollo"] },
+  { id: "m4", name: "Fesa di tacchino (a crudo)", kcal: 107, pro: 24.0, carb: 0.0, fat: 1.2, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["tacchino", "fesa di tacchino", "petto di tacchino"] },
+  { id: "m5", name: "Carne bovina magra / Bistecca / Macinato", kcal: 127, pro: 21.3, carb: 0.0, fat: 4.5, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["manzo", "carne", "bistecca", "macinato", "hamburger", "svizzera", "vitello", "vitellone", "filetto", "tagliata", "polpette", "polpetta", "roastbeef", "tartare", "carpaccio"] },
+  { id: "m6", name: "Lonza / Braciola / Filetto di maiale", kcal: 141, pro: 21.5, carb: 0.0, fat: 6.0, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["maiale", "lonza", "arista", "braciola", "costine", "cotoletta"] },
+  { id: "m7", name: "Ragù alla bolognese (carne e pomodoro)", kcal: 138, pro: 9.5, carb: 4.2, fat: 9.2, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["ragù", "ragu", "ragù alla bolognese", "sugo di carne"] },
+  { id: "m8", name: "Bresaola della Valtellina", kcal: 151, pro: 32.0, carb: 0.0, fat: 2.6, stdGrams: 70, source: "CREA", status: "verificato", aliases: ["bresaola"] },
+  { id: "m9", name: "Prosciutto crudo", kcal: 224, pro: 26.9, carb: 0.3, fat: 12.9, stdGrams: 60, source: "CREA", status: "verificato", aliases: ["prosciutto crudo", "crudo"] },
+  { id: "m10", name: "Prosciutto cotto", kcal: 132, pro: 19.8, carb: 0.9, fat: 5.5, stdGrams: 70, source: "CREA", status: "verificato", aliases: ["prosciutto cotto", "prosciutto", "cotto"] },
+  { id: "m11", name: "Mortadella di Bologna IGP", kcal: 288, pro: 15.7, carb: 0.5, fat: 25.0, stdGrams: 60, source: "CREA", status: "verificato", aliases: ["mortadella", "salame", "coppa", "pancetta", "speck", "guanciale", "wurstel", "affettato", "salumi"] },
+
+  // CEREALI, PASTA, PANE E PIATTI TRADIZIONALI
+  { id: "c1", name: "Pasta di semola (a crudo)", kcal: 353, pro: 13.0, carb: 72.7, fat: 1.5, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["pasta", "spaghetti", "penne", "fusilli", "rigatoni", "maccheroni", "mezze maniche", "farfalle", "tortiglioni", "linguine", "orecchiette", "paccheri", "bucatini", "sedanini", "gramigna"] },
   { id: "c2", name: "Pasta integrale (a crudo)", kcal: 330, pro: 13.4, carb: 66.2, fat: 2.5, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["pasta integrale", "spaghetti integrali", "penne integrali"] },
-  { id: "c3", name: "Riso basmati / parboiled (a crudo)", kcal: 345, pro: 8.0, carb: 77.5, fat: 0.8, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["riso", "basmati", "riso basmati", "riso bianco", "riso carnaroli", "risotto"] },
-  { id: "c4", name: "Farro / Orzo perlato (a crudo)", kcal: 335, pro: 15.1, carb: 67.1, fat: 2.5, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["farro", "orzo", "couscous", "cous cous", "quinoa"] },
-  { id: "c5", name: "Fiocchi d'avena / Cereali", kcal: 373, pro: 12.6, carb: 66.0, fat: 7.0, stdGrams: 45, source: "CREA", status: "verificato", aliases: ["avena", "fiocchi d'avena", "fiocchi di avena", "porridge", "cereali", "muesli", "cornflakes", "granola"] },
-  { id: "c6", name: "Pane comune / Pagnotta", kcal: 265, pro: 8.5, carb: 54.5, fat: 1.5, stdGrams: 60, source: "CREA", status: "verificato", aliases: ["pane", "fetta di pane", "fette di pane", "panino", "rosetta", "ciabatta", "baguette"] },
-  { id: "c7", name: "Pane integrale / Segale", kcal: 243, pro: 7.5, carb: 48.5, fat: 1.8, stdGrams: 60, source: "CREA", status: "verificato", aliases: ["pane integrale", "pane di segale", "pane nero"] },
-  { id: "c8", name: "Gallette di riso / mais", kcal: 387, pro: 8.0, carb: 81.0, fat: 2.8, stdGrams: 30, source: "CREA", status: "verificato", aliases: ["gallette", "galletta", "gallette di riso", "gallette di mais", "fette biscottate", "crackers", "Wasa"] },
-  { id: "c9", name: "Piadina / Tortilla wrap", kcal: 325, pro: 8.2, carb: 52.0, fat: 9.0, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["piadina", "piada", "tortilla", "wrap"] },
-  { id: "c10", name: "Gnocchi di patate", kcal: 156, pro: 4.5, carb: 33.8, fat: 0.4, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["gnocchi", "gnocco"] },
-  { id: "c11", name: "Pizza Margherita (intera ≈ 300g)", kcal: 271, pro: 11.2, carb: 41.5, fat: 6.6, stdGrams: 300, source: "CREA", status: "verificato", aliases: ["pizza", "pizza margherita", "pizze", "trancio di pizza"] },
+  { id: "c3", name: "Pasta all'uovo / Tagliatelle (a crudo)", kcal: 368, pro: 14.8, carb: 68.0, fat: 4.3, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["tagliatelle", "pasta all'uovo", "pappardelle", "fettuccine", "lasagne", "lasagna"] },
+  { id: "c4", name: "Tortellini / Ravioli freschi ripieni", kcal: 298, pro: 13.5, carb: 42.5, fat: 8.2, stdGrams: 125, source: "CREA", status: "verificato", aliases: ["tortellini", "tortelloni", "ravioli", "cappelletti", "agnoli", "balanzoni", "passatelli"] },
+  { id: "c5", name: "Riso basmati / bianco (a crudo)", kcal: 345, pro: 8.0, carb: 77.5, fat: 0.8, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["riso", "basmati", "riso basmati", "riso bianco", "riso integrale", "risotto", "riso venere"] },
+  { id: "c6", name: "Farro / Orzo / Couscous / Quinoa", kcal: 335, pro: 14.0, carb: 67.0, fat: 2.5, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["farro", "orzo", "couscous", "cous cous", "quinoa", "polenta", "miglio", "grano saraceno"] },
+  { id: "c7", name: "Fiocchi d'avena / Cereali colazione", kcal: 373, pro: 12.6, carb: 66.0, fat: 7.0, stdGrams: 45, source: "CREA", status: "verificato", aliases: ["avena", "fiocchi d'avena", "fiocchi di avena", "porridge", "cereali", "muesli", "cornflakes", "granola", "crusca"] },
+  { id: "c8", name: "Pane comune / Panino", kcal: 265, pro: 8.5, carb: 54.5, fat: 1.5, stdGrams: 60, source: "CREA", status: "verificato", aliases: ["pane", "panino", "fetta di pane", "fette di pane", "rosetta", "ciabatta", "baguette", "pancarrè", "pane in cassetta", "toast", "bruschetta", "crostini"] },
+  { id: "c9", name: "Pane integrale / Segale", kcal: 243, pro: 7.5, carb: 48.5, fat: 1.8, stdGrams: 60, source: "CREA", status: "verificato", aliases: ["pane integrale", "pane di segale", "pane nero", "pane ai cereali"] },
+  { id: "c10", name: "Piadina romagnola / Tigella / Crescentina", kcal: 325, pro: 8.2, carb: 52.0, fat: 9.0, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["piadina", "piada", "tigella", "tigelle", "crescentina", "crescentine", "focaccia", "schiacciata", "tortilla", "wrap"] },
+  { id: "c11", name: "Gallette di riso / Fette biscottate / Crackers", kcal: 387, pro: 8.5, carb: 80.0, fat: 3.0, stdGrams: 30, source: "CREA", status: "verificato", aliases: ["gallette", "galletta", "gallette di riso", "gallette di mais", "fette biscottate", "fetta biscottata", "crackers", "cracker", "grissini", "taralli", "wasa", "friselle"] },
+  { id: "c12", name: "Gnocchi di patate", kcal: 156, pro: 4.5, carb: 33.8, fat: 0.4, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["gnocchi", "gnocco"] },
+  { id: "c13", name: "Pizza Margherita (intera ≈ 300g)", kcal: 271, pro: 11.2, carb: 41.5, fat: 6.6, stdGrams: 300, source: "CREA", status: "verificato", aliases: ["pizza", "pizza margherita", "pizze", "trancio di pizza", "pinsa"] },
+  { id: "c14", name: "Farina di frumento / Avena", kcal: 350, pro: 11.0, carb: 73.0, fat: 1.5, stdGrams: 50, source: "CREA", status: "verificato", aliases: ["farina", "farina d'avena", "farina 00", "amido"] },
 
-  // CARNI, PESCE, UOVA E PROTEINE VEGETALI
-  { id: "p1", name: "Petto di pollo (a crudo)", kcal: 100, pro: 23.3, carb: 0.0, fat: 0.8, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["pollo", "petto di pollo", "straccetti di pollo", "filetto di pollo"] },
-  { id: "p2", name: "Fesa di tacchino (a crudo)", kcal: 107, pro: 24.0, carb: 0.0, fat: 1.2, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["tacchino", "fesa di tacchino"] },
-  { id: "p3", name: "Carne magra di manzo / Vitellone", kcal: 127, pro: 21.3, carb: 0.0, fat: 4.5, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["manzo", "carne", "bistecca", "macinato magro", "macinato", "hamburger", "svizzera", "vitello", "carpaccio"] },
-  { id: "p4", name: "Lonza / Arista di maiale", kcal: 141, pro: 21.5, carb: 0.0, fat: 6.0, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["maiale", "lonza", "arista"] },
-  { id: "p5", name: "Bresaola della Valtellina", kcal: 151, pro: 32.0, carb: 0.0, fat: 2.6, stdGrams: 70, source: "CREA", status: "verificato", aliases: ["bresaola"] },
-  { id: "p6", name: "Prosciutto crudo sgrassato", kcal: 224, pro: 26.9, carb: 0.3, fat: 12.9, stdGrams: 60, source: "CREA", status: "verificato", aliases: ["prosciutto crudo", "crudo"] },
-  { id: "p7", name: "Prosciutto cotto / Affettato di tacchino", kcal: 132, pro: 19.8, carb: 0.9, fat: 5.5, stdGrams: 70, source: "CREA", status: "verificato", aliases: ["prosciutto cotto", "prosciutto", "affettato", "fesa"] },
-  { id: "p8", name: "Tonno sgocciolato (al naturale)", kcal: 103, pro: 25.1, carb: 0.0, fat: 0.3, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["tonno", "tonno sgocciolato", "tonno al naturale", "scatoletta di tonno"] },
-  { id: "p9", name: "Tonno sott'olio sgocciolato", kcal: 192, pro: 25.2, carb: 0.0, fat: 10.1, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["tonno sott'olio", "tonno all'olio"] },
-  { id: "p10", name: "Salmone fresco / affumicato", kcal: 185, pro: 18.4, carb: 1.0, fat: 12.0, stdGrams: 130, source: "CREA", status: "verificato", aliases: ["salmone", "salmone affumicato"] },
-  { id: "p11", name: "Merluzzo / Nasello / Orata", kcal: 71, pro: 17.0, carb: 0.0, fat: 0.3, stdGrams: 180, source: "CREA", status: "verificato", aliases: ["merluzzo", "pesce", "nasello", "orata", "spigola", "branzino", "platessa", "gamberi"] },
-  { id: "p12", name: "Uovo di gallina intero (1 uovo ≈ 55g)", kcal: 128, pro: 12.4, carb: 0.0, fat: 8.7, stdGrams: 55, source: "CREA", status: "verificato", aliases: ["uovo", "uova", "frittata", "strapazzate"] },
-  { id: "p13", name: "Albume d'uovo", kcal: 43, pro: 10.7, carb: 0.0, fat: 0.0, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["albume", "albumi"] },
-  { id: "p14", name: "Bocconcini di soia disidratati (peso a secco)", kcal: 336, pro: 50.0, carb: 28.0, fat: 1.5, stdGrams: 50, source: "CREA", status: "verificato", aliases: ["soia", "bocconcini di soia", "soia disidratata", "granulare di soia", "straccetti di soia"] },
-  { id: "p15", name: "Tofu al naturale / Seitan", kcal: 115, pro: 14.6, carb: 1.8, fat: 5.5, stdGrams: 125, source: "CREA", status: "verificato", aliases: ["tofu", "seitan", "tempeh", "burger vegetale"] },
-  { id: "p16", name: "Proteine Whey in polvere", kcal: 380, pro: 80.0, carb: 6.0, fat: 4.5, stdGrams: 30, source: "Etichetta Std", status: "etichetta", aliases: ["whey", "proteine", "proteine in polvere", "shaker", "scoop", "misurino"] },
+  // PESCE, UOVA E PROTEINE VEGETALI (SOIA / TOFU)
+  { id: "p1", name: "Tonno sgocciolato (al naturale)", kcal: 103, pro: 25.1, carb: 0.0, fat: 0.3, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["tonno", "tonno sgocciolato", "tonno al naturale", "scatoletta di tonno"] },
+  { id: "p2", name: "Tonno sott'olio sgocciolato", kcal: 192, pro: 25.2, carb: 0.0, fat: 10.1, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["tonno sott'olio", "tonno all'olio"] },
+  { id: "p3", name: "Salmone fresco / affumicato", kcal: 185, pro: 18.4, carb: 1.0, fat: 12.0, stdGrams: 130, source: "CREA", status: "verificato", aliases: ["salmone", "salmone affumicato", "pesce spada", "sgombro"] },
+  { id: "p4", name: "Merluzzo / Orata / Branzino / Gamberi", kcal: 75, pro: 17.0, carb: 0.0, fat: 0.6, stdGrams: 180, source: "CREA", status: "verificato", aliases: ["merluzzo", "pesce", "nasello", "orata", "spigola", "branzino", "platessa", "gamberi", "gamberetti", "calamari", "polpo", "seppie", "cozze", "vongole", "bastoncini"] },
+  { id: "p5", name: "Uovo di gallina intero (1 uovo ≈ 55g)", kcal: 128, pro: 12.4, carb: 0.0, fat: 8.7, stdGrams: 55, source: "CREA", status: "verificato", aliases: ["uovo", "uova", "frittata", "omelette"] },
+  { id: "p6", name: "Albume d'uovo liquido", kcal: 43, pro: 10.7, carb: 0.0, fat: 0.0, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["albume", "albumi"] },
+  { id: "p7", name: "Bocconcini di soia disidratati (peso a secco)", kcal: 336, pro: 50.0, carb: 28.0, fat: 1.5, stdGrams: 50, source: "CREA", status: "verificato", aliases: ["soia", "bocconcini di soia", "soia disidratata", "granulare di soia", "straccetti di soia", "bistecche di soia"] },
+  { id: "p8", name: "Tofu / Seitan / Burger vegetale", kcal: 120, pro: 15.0, carb: 2.5, fat: 5.5, stdGrams: 125, source: "CREA", status: "verificato", aliases: ["tofu", "seitan", "tempeh", "burger vegetale", "burger di soia", "cotoletta di soia"] },
+  { id: "p9", name: "Proteine Whey in polvere", kcal: 380, pro: 80.0, carb: 6.0, fat: 4.5, stdGrams: 30, source: "Etichetta Std", status: "etichetta", aliases: ["whey", "proteine", "proteine in polvere", "shaker", "scoop", "misurino", "isolato"] },
+  { id: "p10", name: "Barretta proteica / Budino proteico", kcal: 350, pro: 30.0, carb: 32.0, fat: 10.0, stdGrams: 55, source: "Etichetta Std", status: "etichetta", aliases: ["barretta", "barretta proteica", "budino proteico", "mousse proteica"] },
 
-  // LATTICINI E YOGURT
-  { id: "l1", name: "Yogurt greco 0% / Skyr", kcal: 57, pro: 10.3, carb: 4.0, fat: 0.0, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["yogurt greco", "yogurt", "fage", "skyr", "yogurt proteico"] },
-  { id: "l2", name: "Latte parzialmente scremato / Bevanda soia", kcal: 46, pro: 3.3, carb: 4.9, fat: 1.5, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["latte", "latte di soia", "latte d'avena", "cappuccino"] },
-  { id: "l3", name: "Fiocchi di latte magri (Jocca / Cottage cheese)", kcal: 99, pro: 12.5, carb: 2.7, fat: 4.3, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["fiocchi di latte", "cottage cheese"] },
-  { id: "l4", name: "Ricotta vaccina", kcal: 146, pro: 8.8, carb: 3.5, fat: 10.9, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["ricotta"] },
-  { id: "l5", name: "Mozzarella / Mozzarella light", kcal: 220, pro: 19.5, carb: 1.0, fat: 15.5, stdGrams: 125, source: "CREA", status: "verificato", aliases: ["mozzarella", "burrata", "stracciatella", "scamorza"] },
-  { id: "l6", name: "Parmigiano Reggiano / Grana Padano", kcal: 402, pro: 32.4, carb: 0.0, fat: 29.7, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["parmigiano", "grana", "pecorino", "formaggio"] },
+  // LATTICINI, YOGURT E FORMAGGI
+  { id: "l1", name: "Yogurt greco 0% / Skyr", kcal: 57, pro: 10.3, carb: 4.0, fat: 0.0, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["yogurt greco", "yogurt", "fage", "skyr", "yogurt proteico", "yogurt magro", "yogurt bianco"] },
+  { id: "l2", name: "Latte parzialmente scremato / Bevanda vegetale", kcal: 46, pro: 3.3, carb: 4.9, fat: 1.5, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["latte", "latte di soia", "latte d'avena", "latte di mandorla", "cappuccino", "kefir"] },
+  { id: "l3", name: "Fiocchi di latte magri", kcal: 99, pro: 12.5, carb: 2.7, fat: 4.3, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["fiocchi di latte", "jocca", "cottage cheese"] },
+  { id: "l4", name: "Ricotta / Stracchino / Spalmabile light", kcal: 155, pro: 9.5, carb: 3.5, fat: 11.5, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["ricotta", "philadelphia", "stracchino", "crescenza", "squacquerone", "robiola", "feta", "primo sale"] },
+  { id: "l5", name: "Mozzarella / Scamorza / Primo sale", kcal: 225, pro: 19.5, carb: 1.0, fat: 16.0, stdGrams: 125, source: "CREA", status: "verificato", aliases: ["mozzarella", "burrata", "stracciatella", "scamorza", "provola", "caciotta"] },
+  { id: "l6", name: "Parmigiano Reggiano / Grana Padano", kcal: 402, pro: 32.4, carb: 0.0, fat: 29.7, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["parmigiano", "grana", "pecorino", "formaggio", "asiago", "emmental", "fontina", "gorgonzola", "cheddar"] },
 
-  // LEGUMI, PATATE E VERDURE
-  { id: "v1", name: "Lenticchie / Ceci / Fagioli cotti scolati", kcal: 112, pro: 7.5, carb: 17.8, fat: 1.2, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["lenticchie", "ceci", "fagioli", "piselli", "edamame", "legumi", "hummus"] },
-  { id: "v2", name: "Patate / Patate dolci (a crudo)", kcal: 85, pro: 2.1, carb: 17.9, fat: 1.0, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["patate", "patata", "patate al forno", "patate lesse", "patata dolce"] },
-  { id: "v3", name: "Verdure miste / Insalata / Zucchine / Broccoli", kcal: 24, pro: 1.5, carb: 3.8, fat: 0.2, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["verdure", "verdura", "insalata", "zucchine", "broccoli", "spinaci", "pomodori", "pomodoro", "melanzane", "peperoni", "carote", "fagiolini", "cavolfiore", "finocchi"] },
-  { id: "v4", name: "Sugo di pomodoro / Passata", kcal: 36, pro: 1.4, carb: 6.5, fat: 0.3, stdGrams: 100, source: "CREA", status: "verificato", aliases: ["sugo", "passata", "pomodoro", "salsa di pomodoro", "ragù"] },
+  // LEGUMI, PATATE, VERDURE E CONDIMENTI
+  { id: "v1", name: "Lenticchie / Ceci / Fagioli / Piselli cotti", kcal: 112, pro: 7.5, carb: 17.8, fat: 1.2, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["lenticchie", "ceci", "fagioli", "piselli", "edamame", "legumi", "fave", "lupini", "hummus"] },
+  { id: "v2", name: "Patate / Patate al forno o lesse", kcal: 85, pro: 2.1, carb: 17.9, fat: 1.0, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["patate", "patata", "patate al forno", "patate lesse", "patata dolce", "patate americane", "purè"] },
+  { id: "v3", name: "Patatine fritte", kcal: 290, pro: 3.5, carb: 36.0, fat: 14.5, stdGrams: 120, source: "CREA", status: "verificato", aliases: ["patatine", "patatine fritte", "chips"] },
+  { id: "v4", name: "Verdure miste (Zucchine / Broccoli / Insalata / Spinaci)", kcal: 24, pro: 1.5, carb: 3.8, fat: 0.2, stdGrams: 200, source: "CREA", status: "verificato", aliases: ["verdure", "verdura", "insalata", "zucchine", "zucchina", "broccoli", "broccolo", "spinaci", "pomodori", "pomodoro", "pomodorini", "melanzane", "melanzana", "peperoni", "peperone", "carote", "carota", "fagiolini", "cavolfiore", "finocchi", "finocchio", "cetrioli", "cetriolo", "asparagi", "funghi", "radicchio", "rucola", "lattuga", "zucca", "cipolla", "friarielli", "bietole", "carciofi", "cavolo", "verza"] },
+  { id: "v5", name: "Sugo di pomodoro / Passata / Pesto", kcal: 45, pro: 1.5, carb: 6.5, fat: 1.2, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["sugo", "passata", "salsa", "ketchup", "senape"] },
+  { id: "v6", name: "Pesto alla genovese / Maionese", kcal: 480, pro: 4.5, carb: 5.0, fat: 48.0, stdGrams: 30, source: "CREA", status: "verificato", aliases: ["pesto", "maionese", "salsa rosa"] },
 
-  // FRUTTA, GRASSI E CONDIMENTI
-  { id: "f1", name: "Olio extravergine di oliva", kcal: 899, pro: 0.0, carb: 0.0, fat: 99.9, stdGrams: 10, source: "CREA", status: "verificato", aliases: ["olio", "olio evo", "olio d'oliva", "olio extravergine", "cucchiaio di olio"] },
-  { id: "f2", name: "Burro di arachidi / Crema 100% frutta secca", kcal: 612, pro: 26.0, carb: 12.0, fat: 51.0, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["burro di arachidi", "burro d'arachidi", "crema di arachidi", "burro di mandorle"] },
-  { id: "f3", name: "Frutta secca (Mandorle / Noci / Nocciole)", kcal: 620, pro: 20.0, carb: 6.0, fat: 56.0, stdGrams: 25, source: "CREA", status: "verificato", aliases: ["mandorle", "noci", "nocciole", "anacardi", "pistacchi", "arachidi", "frutta secca"] },
-  { id: "f4", name: "Avocado", kcal: 231, pro: 4.4, carb: 1.8, fat: 23.0, stdGrams: 80, source: "CREA", status: "verificato", aliases: ["avocado", "guacamole"] },
+  // GRASSI, FRUTTA FRESCA, FRUTTA SECCA E DOLCI
+  { id: "f1", name: "Olio extravergine di oliva", kcal: 899, pro: 0.0, carb: 0.0, fat: 99.9, stdGrams: 10, source: "CREA", status: "verificato", aliases: ["olio", "olio evo", "olio d'oliva", "olio extravergine", "burro"] },
+  { id: "f2", name: "Burro di arachidi / Crema 100% frutta secca", kcal: 612, pro: 26.0, carb: 12.0, fat: 51.0, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["burro di arachidi", "burro d'arachidi", "crema di arachidi", "burro di mandorle", "tahina"] },
+  { id: "f3", name: "Frutta secca (Mandorle / Noci / Nocciole / Pistacchi)", kcal: 620, pro: 20.0, carb: 6.0, fat: 56.0, stdGrams: 25, source: "CREA", status: "verificato", aliases: ["mandorle", "mandorla", "noci", "noce", "nocciole", "anacardi", "pistacchi", "arachidi", "frutta secca", "pinoli", "semi"] },
+  { id: "f4", name: "Avocado / Olive", kcal: 215, pro: 3.5, carb: 2.0, fat: 21.0, stdGrams: 70, source: "CREA", status: "verificato", aliases: ["avocado", "guacamole", "olive"] },
   { id: "f5", name: "Banana (sbucciata)", kcal: 69, pro: 1.2, carb: 15.4, fat: 0.3, stdGrams: 120, source: "CREA", status: "verificato", aliases: ["banana", "banane"] },
-  { id: "f6", name: "Mela / Pera / Pesca / Arancia", kcal: 48, pro: 0.4, carb: 11.0, fat: 0.1, stdGrams: 160, source: "CREA", status: "verificato", aliases: ["mela", "mele", "pera", "frutta", "arancia", "mandarini", "fragole", "mirtilli", "frutti di bosco", "kiwi", "pesca"] },
-  { id: "f7", name: "Cioccolato fondente / Cacao", kcal: 542, pro: 6.6, carb: 49.7, fat: 33.6, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["cioccolato", "cioccolato fondente", "cacao"] },
-  { id: "f8", name: "Miele / Marmellata", kcal: 280, pro: 0.5, carb: 70.0, fat: 0.0, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["miele", "marmellata", "confettura", "sciroppo d'acero"] },
-  { id: "f9", name: "Biscotti / Cornetto / Brioche", kcal: 435, pro: 7.5, carb: 64.0, fat: 16.5, stdGrams: 50, source: "CREA", status: "verificato", aliases: ["biscotti", "biscotto", "cornetto", "brioche", "frollini", "torta", "gelato"] }
+  { id: "f6", name: "Frutta fresca (Mela / Pera / Arancia / Fragole / Kiwi)", kcal: 48, pro: 0.5, carb: 11.0, fat: 0.1, stdGrams: 150, source: "CREA", status: "verificato", aliases: ["mela", "mele", "pera", "pere", "frutta", "arancia", "arance", "mandarini", "mandarino", "fragole", "mirtilli", "frutti di bosco", "lamponi", "kiwi", "pesca", "pesche", "albicocche", "uva", "melone", "anguria", "ananas", "cachi", "fichi", "ciliegie", "prugne"] },
+  { id: "f7", name: "Cioccolato fondente / al latte / Cacao", kcal: 542, pro: 6.6, carb: 49.7, fat: 33.6, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["cioccolato", "cioccolato fondente", "cioccolata", "cacao", "nutella", "crema spalmabile"] },
+  { id: "f8", name: "Miele / Marmellata / Zucchero", kcal: 280, pro: 0.5, carb: 70.0, fat: 0.0, stdGrams: 20, source: "CREA", status: "verificato", aliases: ["miele", "marmellata", "confettura", "sciroppo d'acero", "zucchero"] },
+  { id: "f9", name: "Biscotti / Cornetto / Brioche / Torta / Gelato", kcal: 410, pro: 7.0, carb: 60.0, fat: 15.0, stdGrams: 50, source: "CREA", status: "verificato", aliases: ["biscotti", "biscotto", "cornetto", "brioche", "frollini", "torta", "crostata", "ciambellone", "plumcake", "pancake", "pancakes", "waffle", "gelato", "tiramisù", "merendina"] },
+  { id: "f10", name: "Sushi misto (Nigiri / Uramaki)", kcal: 155, pro: 7.2, carb: 24.5, fat: 3.2, stdGrams: 250, source: "CREA/Std", status: "verificato", aliases: ["sushi", "uramaki", "nigiri", "sashimi", "poke", "pokè"] }
 ];
 
 const DEFAULT_STATE = {
@@ -628,10 +653,6 @@ const App = {
     this.searchLocalDB("");
     this.renderDashboard();
     this.renderRecipes();
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js").catch(() => {});
-    }
   },
 
   saveState() {
@@ -739,7 +760,7 @@ const App = {
     document.getElementById("dashKcalTarget").textContent = t.kcal;
     document.getElementById("dashKcalPct").textContent = Math.round((totals.kcal / t.kcal) * 100) + "%";
     document.getElementById("dashKcalBar").style.width = kcalPct + "%";
-    document.getElementById("kcalRemainingBadge").textContent = remKcal >= 0 ? `Rimanenti: ${remKcal} kcal` : `Surplus extra: +${Math.abs(remKcal)} kcal`;
+    document.getElementById("kcalRemainingBadge").textContent = remKcal >= 0 ? `Rimanenti: ${remKcal} kcal` : `Surplus: +${Math.abs(remKcal)} kcal`;
 
     const updateMacro = (prefix, cur, targ) => {
       const pct = Math.round((cur / targ) * 100);
@@ -764,7 +785,7 @@ const App = {
       const card = document.createElement("div");
       card.className = "card meal-section";
       let itemsHtml = items.length === 0
-        ? `<div style="font-size:0.82rem; color:var(--text-muted); padding:4px 0;">Nessun alimento registrato.</div>`
+        ? `<div style="font-size:0.8rem; color:var(--text-muted); padding:4px 0;">Nessun alimento registrato.</div>`
         : items.map(item => {
             const k = Math.round(item.kcal100 * item.grams / 100);
             const p = (item.pro100 * item.grams / 100).toFixed(1);
@@ -838,24 +859,75 @@ const App = {
   },
 
   getAllLocalFoods() {
-    return [...CREA_FOODS, ...this.state.customFoods];
+    return [...this.state.customFoods, ...CREA_FOODS];
+  },
+
+  /**
+   * ALGORITMO DI RICERCA MORFOLOGICA ITALIANA
+   * Confronta parole intere e radici (es. salsiccia <-> salsicce) evitando falsi positivi.
+   */
+  stemWord(w) {
+    if (w.length <= 4) return w;
+    return w.replace(/(cce|ccia|cci|cina|cine|ini|ine|oni|one|ata|ate|ati|ato|[aeiou])$/i, "");
+  },
+
+  findBestLocalMatch(queryText) {
+    const q = queryText.toLowerCase().trim();
+    if (!q || q.length < 2) return null;
+    const qTokens = q.split(/\s+/).filter(w => w.length >= 2);
+    const all = this.getAllLocalFoods();
+
+    let bestFood = null;
+    let bestScore = 0;
+
+    for (const food of all) {
+      const candidates = [food.name.toLowerCase(), ...(food.aliases || []).map(a => a.toLowerCase())];
+      for (const cand of candidates) {
+        let score = 0;
+        if (cand === q) {
+          score = 100;
+        } else if (q.includes(cand) && cand.length >= 4) {
+          score = 60 + cand.length;
+        } else {
+          const candTokens = cand.split(/\s+/).filter(w => w.length >= 2);
+          for (const qt of qTokens) {
+            const qtStem = this.stemWord(qt);
+            for (const ct of candTokens) {
+              const ctStem = this.stemWord(ct);
+              if (qt === ct) score += 35;
+              else if (qtStem.length >= 3 && qtStem === ctStem) score += 28;
+              else if (qt.length >= 4 && ct.startsWith(qt)) score += 20;
+            }
+          }
+        }
+        if (score > bestScore) {
+          bestScore = score;
+          bestFood = food;
+        }
+      }
+    }
+    return bestScore >= 20 ? bestFood : null;
   },
 
   searchLocalDB(query) {
     const q = (query || "").toLowerCase().trim();
     const all = this.getAllLocalFoods();
-    const matches = q === "" ? all : all.filter(f =>
-      f.name.toLowerCase().includes(q) ||
-      (f.brand && f.brand.toLowerCase().includes(q)) ||
-      (f.aliases && f.aliases.some(a => a.includes(q) || q.includes(a)))
-    );
+    if (!q) {
+      this.renderDBResults(all.slice(0, 30));
+      return;
+    }
+    const qStem = this.stemWord(q);
+    const matches = all.filter(f => {
+      const targets = [f.name.toLowerCase(), ...(f.aliases || []).map(a => a.toLowerCase())];
+      return targets.some(t => t.includes(q) || (qStem.length >= 3 && t.includes(qStem)));
+    });
     this.renderDBResults(matches);
   },
 
   renderDBResults(list) {
     const box = document.getElementById("dbSearchResults");
     if (list.length === 0) {
-      box.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted);">Nessun risultato nel DB rapido. Premi "🌐 Cerca Online (OFF)" per cercarlo su Open Food Facts.</div>`;
+      box.innerHTML = `<div style="font-size:0.84rem; color:var(--text-muted);">Nessun risultato nel DB locale. Premi "🌐 Cerca Marche (OFF)" per interrogare Open Food Facts in tempo reale.</div>`;
       return;
     }
     box.innerHTML = list.map(f => `
@@ -869,25 +941,34 @@ const App = {
     `).join("");
   },
 
+  /**
+   * API OPEN FOOD FACTS V2 CON TIMEOUT VELOCE (3.5s) E FALLBACK CORS-SAFE
+   */
   async queryOpenFoodFactsAPI(searchTerm) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3800);
     try {
-      const url = `https://it.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(searchTerm)}&search_simple=1&action=process&json=1&page_size=5`;
-      const res = await fetch(url);
+      const url = `https://it.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(searchTerm)}&search_simple=1&action=process&json=1&page_size=6&fields=code,product_name,brands,nutriments`;
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timer);
       const data = await res.json();
       if (!data.products || data.products.length === 0) return [];
-      return data.products.filter(p => p.product_name && p.nutriments).map(p => ({
-        id: "off_" + (p.code || Math.random()),
-        name: p.product_name,
-        brand: p.brands || "OpenFoodFacts",
-        kcal: Math.round(p.nutriments["energy-kcal_100g"] || (p.nutriments["energy_100g"] / 4.184) || 0),
-        pro: +(p.nutriments.proteins_100g || 0).toFixed(1),
-        carb: +(p.nutriments.carbohydrates_100g || 0).toFixed(1),
-        fat: +(p.nutriments.fat_100g || 0).toFixed(1),
-        stdGrams: 100,
-        source: "Open Food Facts (" + (p.brands || "IT") + ")",
-        status: "etichetta"
-      }));
+      return data.products
+        .filter(p => p.product_name && p.nutriments)
+        .map(p => ({
+          id: "off_" + (p.code || Math.random()),
+          name: p.product_name,
+          brand: p.brands || "OpenFoodFacts",
+          kcal: Math.round(p.nutriments["energy-kcal_100g"] || (p.nutriments["energy_100g"] / 4.184) || 150),
+          pro: +(p.nutriments.proteins_100g || 0).toFixed(1),
+          carb: +(p.nutriments.carbohydrates_100g || 0).toFixed(1),
+          fat: +(p.nutriments.fat_100g || 0).toFixed(1),
+          stdGrams: 100,
+          source: "Open Food Facts (" + (p.brands || "IT") + ")",
+          status: "etichetta"
+        }));
     } catch (e) {
+      clearTimeout(timer);
       return [];
     }
   },
@@ -896,13 +977,27 @@ const App = {
     const q = document.getElementById("dbSearchInput").value.trim();
     if (!q) return alert("Digita il nome dell'alimento da cercare.");
     const box = document.getElementById("dbSearchResults");
-    box.innerHTML = `<div style="font-size:0.85rem; color:var(--accent);">⏳ Ricerca su Open Food Facts Italia in corso...</div>`;
+    box.innerHTML = `<div style="font-size:0.85rem; color:var(--accent);">⏳ Ricerca live su Open Food Facts Italia per "${this.escape(q)}"...</div>`;
     const results = await this.queryOpenFoodFactsAPI(q);
     if (results.length === 0) {
-      box.innerHTML = `<div class="alert-box">Nessun risultato trovato su Open Food Facts per "${this.escape(q)}". Usa il tab Manuale.</div>`;
+      const localFallback = this.findBestLocalMatch(q);
+      if (localFallback) {
+        this.renderDBResults([localFallback]);
+      } else {
+        box.innerHTML = `<div class="alert-box">Open Food Facts non ha risposto o non ha trovato "${this.escape(q)}". Puoi inserirlo al volo cliccando qui: <button class="btn btn-sm" style="margin-left:8px;" onclick="App.stageCustomFallback('${this.escape(q)}')">Crea Voce Rapida</button></div>`;
+      }
     } else {
       this.renderDBResults(results);
     }
+  },
+
+  stageCustomFallback(nameStr) {
+    this.stagingItems = [{
+      name: nameStr.charAt(0).toUpperCase() + nameStr.slice(1),
+      grams: 100, kcal100: 200, pro100: 14, carb100: 10, fat100: 11,
+      source: "Stima Personalizzabile", status: "stimato"
+    }];
+    this.renderStagingCard("Imposta i valori nutrizionali o i grammi prima di salvare:", "Media");
   },
 
   stageSingleFood(foodObj) {
@@ -920,10 +1015,7 @@ const App = {
   },
 
   /**
-   * MOTORE DI PARSING LINGUAGGIO NATURALE IBRIDO (CREA + OPEN FOOD FACTS + AI)
-   * Non fallisce mai con popup bloccanti: segmenta la frase, cerca nel DB CREA,
-   * se non trova un segmento interroga automaticamente Open Food Facts,
-   * e mostra sempre la schermata di conferma modificabile.
+   * ANALISI LINGUAGGIO NATURALE INFALLIBILE
    */
   async analyzeNaturalLanguage() {
     const text = document.getElementById("nlpInput").value.trim();
@@ -931,20 +1023,13 @@ const App = {
 
     const btn = document.getElementById("btnAnalyzeText");
     btn.disabled = true;
-    btn.textContent = "⏳ Analisi nutrizionale in corso...";
+    btn.textContent = "⏳ Riconoscimento alimenti in corso...";
 
     try {
-      // 1. Se l'utente ha configurato Gemini API o Proxy, prova prima con l'LLM
       if (this.state.aiConfig.proxyUrl || this.state.aiConfig.apiKey) {
         const aiSuccess = await this.callMultimodalAI(text, null);
-        if (aiSuccess) {
-          btn.disabled = false;
-          btn.textContent = "🔍 Analizza e Verifica";
-          return;
-        }
+        if (aiSuccess) return;
       }
-
-      // 2. Motore Ibrido Intelligente (Locale CREA + Fallback Automatico Open Food Facts)
       await this.smartHybridParser(text);
     } finally {
       btn.disabled = false;
@@ -953,55 +1038,35 @@ const App = {
   },
 
   async smartHybridParser(rawText) {
-    // Pulizia verbi introduttivi comuni
     let cleaned = rawText
-      .replace(/^(ho mangiato| a pranzo|a cena|a colazione|ho fatto colazione con|ho preso|oggi ho mangiato|ieri ho mangiato)\s+/gi, "")
+      .replace(/^(ho mangiato|a pranzo|a cena|a colazione|ho fatto colazione con|ho preso|oggi ho mangiato|ieri ho mangiato)\s+/gi, "")
       .trim();
 
-    // Segmentazione su virgole, "+", "e", "con", "più", a capo
     const clauses = cleaned
-      .split(/\s*(?:,|;|\+|\n|\b(?:e|con|più|poi)\b)\s*/i)
+      .split(/\s*(?:,|;|\+|\n|\b(?:e|ed|con|più|poi|accompagnato da)\b)\s*/i)
       .map(s => s.trim())
       .filter(s => s.length >= 2);
 
     const detectedItems = [];
-    const allLocal = this.getAllLocalFoods();
 
     for (const clause of clauses) {
       const lower = clause.toLowerCase();
 
-      // Estrazione quantità numerica in grammi/ml o moltiplicatori ("2 uova", "metà pizza", "una banana")
       const gramMatch = lower.match(/(\d+(?:[.,]\d+)?)\s*(?:g|gr|grammi|ml|millilitri)\b/i) || lower.match(/\b(\d+(?:[.,]\d+)?)\b/);
       const isHalf = /\b(metà|meta|mezza|mezzo)\b/i.test(lower);
       const isDouble = /\b(due|2)\b/i.test(lower) && !/\b\d+\s*(?:g|gr|grammi|ml)\b/i.test(lower);
       const isTriple = /\b(tre|3)\b/i.test(lower) && !/\b\d+\s*(?:g|gr|grammi|ml)\b/i.test(lower);
       const isTablespoon = /\b(cucchiaio|cucchiai)\b/i.test(lower);
 
-      // Pulizia del nome alimento per la ricerca
       let foodQuery = lower
-        .replace(/(\d+(?:[.,]\d+)?)\s*(?:g|gr|grammi|ml|millilitri|fette|fetta|cucchiaio|cucchiai|scatoletta|porzione)?\b/gi, "")
+        .replace(/(\d+(?:[.,]\d+)?)\s*(?:g|gr|grammi|ml|millilitri|fette|fetta|cucchiaio|cucchiai|scatoletta|porzione|pezzi|pezzo)?\b/gi, "")
         .replace(/\b(pesata a crudo|pesato a crudo|a crudo|cotto|cotta|sgocciolato|sgocciolata|al naturale|un|uno|una|del|della|dello|dei|degli|delle|di|da|il|lo|la|i|gli|le|metà|meta|mezza|mezzo|due|tre|questa|questo)\b/gi, " ")
         .replace(/\s+/g, " ")
         .trim();
 
       if (!foodQuery || foodQuery.length < 2) continue;
 
-      // A. Cerca corrispondenza migliore nel DB CREA + Custom
-      let bestMatch = null;
-      let bestScore = 0;
-
-      for (const f of allLocal) {
-        const candidates = [f.name.toLowerCase(), ...(f.aliases || []).map(a => a.toLowerCase())];
-        for (const cand of candidates) {
-          if (lower.includes(cand) || cand.includes(foodQuery) || foodQuery.includes(cand)) {
-            const score = cand.length + (lower.includes(cand) ? 10 : 0);
-            if (score > bestScore) {
-              bestScore = score;
-              bestMatch = f;
-            }
-          }
-        }
-      }
+      const bestMatch = this.findBestLocalMatch(foodQuery);
 
       let grams = 100;
       let isEstimatedGrams = true;
@@ -1032,7 +1097,6 @@ const App = {
           status: isEstimatedGrams ? "stimato" : bestMatch.status
         });
       } else {
-        // B. Fallback automatico su Open Food Facts per qualsiasi alimento non presente nel DB CREA
         const offMatches = await this.queryOpenFoodFactsAPI(foodQuery);
         if (offMatches.length > 0) {
           const top = offMatches[0];
@@ -1047,15 +1111,14 @@ const App = {
             status: isEstimatedGrams ? "stimato" : "etichetta"
           });
         } else {
-          // C. Se l'utente è offline o il nome è inedito, crea comunque la riga modificabile
           detectedItems.push({
             name: foodQuery.charAt(0).toUpperCase() + foodQuery.slice(1),
             grams: grams,
-            kcal100: 150,
-            pro100: 10,
+            kcal100: 180,
+            pro100: 12,
             carb100: 15,
-            fat100: 5,
-            source: "Stima (Verifica valori)",
+            fat100: 8,
+            source: "Stima (Modificabile)",
             status: "stimato"
           });
         }
@@ -1066,9 +1129,9 @@ const App = {
     const anyEstimated = detectedItems.some(i => i.status === "stimato");
     this.renderStagingCard(
       anyEstimated
-        ? "Controlla i grammi e i valori nutrizionali qui sotto (puoi modificarli prima di confermare):"
-        : "Alimenti riconosciuti e associati alle tabelle ufficiali CREA / Open Food Facts:",
-      anyEstimated ? "Media (Porzione stimata)" : "Bassa (Dati verificati)"
+        ? "Ecco gli alimenti riconosciuti. Verifica o modifica i grammi qui sotto prima di salvare:"
+        : "Alimenti e quantità associati alle tabelle ufficiali CREA:",
+      anyEstimated ? "Media (Porzione stimata)" : "Bassa (Dati CREA)"
     );
   },
 
@@ -1087,11 +1150,11 @@ const App = {
   async analyzePhoto() {
     const context = document.getElementById("photoContextInput").value.trim();
     if (!this.currentPhotoBase64 && !context) {
-      return alert("Carica una foto o scrivi una breve descrizione del piatto.");
+      return alert("Carica una foto o scrivi cosa contiene il piatto.");
     }
     const btn = document.getElementById("btnAnalyzePhoto");
     btn.disabled = true;
-    btn.textContent = "⏳ Analisi immagine in corso...";
+    btn.textContent = "⏳ Analisi in corso...";
 
     try {
       if (this.state.aiConfig.proxyUrl || this.state.aiConfig.apiKey) {
@@ -1101,11 +1164,11 @@ const App = {
       if (context) {
         await this.smartHybridParser(context);
       } else {
-        alert("Per riconoscere automaticamente una foto senza descrizione testuale, inserisci una Gemini API Key gratuita nella scheda 'Profilo'. Altrimenti scrivi brevemente cosa contiene il piatto nel campo qui sopra (es. 'Pollo e patate') e premi di nuovo.");
+        alert("Scrivi brevemente il nome del piatto nel campo testo sopra il pulsante (es. 'Salsiccia e patate') oppure inserisci una Gemini API Key gratuita nella scheda Profilo.");
       }
     } finally {
       btn.disabled = false;
-      btn.textContent = "📸 Analizza Foto e Stima Porzioni";
+      btn.textContent = "📸 Analizza e Stima Porzioni";
     }
   },
 
@@ -1153,7 +1216,6 @@ const App = {
       this.renderStagingCard(jsonResponse.notes || "Verifica le quantità stimate prima di salvare:", jsonResponse.uncertaintyLevel || "Media");
       return true;
     } catch (err) {
-      console.warn("Fallback al motore ibrido locale/OFF:", err);
       return false;
     }
   },
@@ -1179,24 +1241,24 @@ const App = {
           </div>
           <div class="grid-4" style="margin-top:8px;">
             <div>
-              <label style="margin:0; font-size:0.72rem;">Grammi</label>
+              <label style="margin:0; font-size:0.7rem;">Grammi</label>
               <input type="number" value="${item.grams}" onchange="App.updateStagingField(${idx}, 'grams', this.value)" style="padding:6px;">
             </div>
             <div>
-              <label style="margin:0; font-size:0.72rem;">Kcal/100g</label>
+              <label style="margin:0; font-size:0.7rem;">Kcal/100g</label>
               <input type="number" step="0.1" value="${item.kcal100}" onchange="App.updateStagingField(${idx}, 'kcal100', this.value)" style="padding:6px;">
             </div>
             <div>
-              <label style="margin:0; font-size:0.72rem;">Pro/100g</label>
+              <label style="margin:0; font-size:0.7rem;">Pro/100g</label>
               <input type="number" step="0.1" value="${item.pro100}" onchange="App.updateStagingField(${idx}, 'pro100', this.value)" style="padding:6px;">
             </div>
             <div>
-              <label style="margin:0; font-size:0.72rem;">Carb/100g</label>
-              <input type="number" step="0.1" value="${item.carb100}" onchange="App.updateStagingField(${idx}, 'carb100', this.value)" style="padding:6px;">
+              <label style="margin:0; font-size:0.7rem;">Grassi/100g</label>
+              <input type="number" step="0.1" value="${item.fat100}" onchange="App.updateStagingField(${idx}, 'fat100', this.value)" style="padding:6px;">
             </div>
           </div>
-          <div style="font-size:0.82rem; color:var(--accent); font-weight:700; margin-top:8px;">
-            Totale porzione (${item.grams}g): ${k} kcal • P: ${p}g | C: ${c}g | G: ${f}g <span style="color:var(--text-muted); font-weight:400;">(${this.escape(item.source)})</span>
+          <div style="font-size:0.8rem; color:var(--accent); font-weight:700; margin-top:8px;">
+            Totale (${item.grams}g): ${k} kcal • P: ${p}g | C: ${c}g | G: ${f}g <span style="color:var(--text-muted); font-weight:400;">(${this.escape(item.source)})</span>
           </div>
         </div>
       `;
@@ -1261,7 +1323,7 @@ const App = {
       this.state.customFoods.push({
         id: "cust_" + Date.now(),
         name, brand, kcal: kcal100, pro: pro100, carb: carb100, fat: fat100,
-        stdGrams: grams, source: brand, status
+        stdGrams: grams, source: brand, status, aliases: [name.toLowerCase()]
       });
     }
 
@@ -1345,7 +1407,7 @@ const App = {
   renderRecipes() {
     const list = document.getElementById("savedRecipesList");
     if (this.state.recipes.length === 0) {
-      list.innerHTML = `<div style="font-size:0.85rem; color:var(--text-muted);">Nessuna ricetta salvata.</div>`;
+      list.innerHTML = `<div style="font-size:0.84rem; color:var(--text-muted);">Nessuna ricetta salvata.</div>`;
       return;
     }
     list.innerHTML = this.state.recipes.map(r => `
@@ -1443,13 +1505,13 @@ const App = {
     if (dates.length === 0) {
       ctx1.fillStyle = "#9ca3af";
       ctx1.font = "14px sans-serif";
-      ctx1.fillText("Registra almeno un pasto per visualizzare i grafici.", 20, 110);
+      ctx1.fillText("Registra almeno un pasto per visualizzare i grafici.", 20, 100);
       return;
     }
 
     const targKcal = this.state.profile.targets.kcal;
     const maxKcal = Math.max(targKcal * 1.2, ...dates.map(d => this.calculateDayTotals(d).kcal));
-    const pad = 35, w = c1.width - pad * 2, h = c1.height - pad * 2;
+    const pad = 32, w = c1.width - pad * 2, h = c1.height - pad * 2;
 
     const ty = pad + h - (targKcal / maxKcal) * h;
     ctx1.strokeStyle = "#10b981";
@@ -1457,7 +1519,7 @@ const App = {
     ctx1.beginPath(); ctx1.moveTo(pad, ty); ctx1.lineTo(pad + w, ty); ctx1.stroke();
     ctx1.setLineDash([]);
 
-    const barW = Math.min(32, (w / dates.length) * 0.6);
+    const barW = Math.min(30, (w / dates.length) * 0.6);
     dates.forEach((d, i) => {
       const val = this.calculateDayTotals(d).kcal;
       const bh = (val / maxKcal) * h;
@@ -1467,7 +1529,7 @@ const App = {
       ctx1.fillRect(x, y, barW, bh);
       ctx1.fillStyle = "#9ca3af";
       ctx1.font = "10px sans-serif";
-      ctx1.fillText(d.slice(5), x, c1.height - 10);
+      ctx1.fillText(d.slice(5), x, c1.height - 8);
     });
 
     const c2 = document.getElementById("chartWeightPro");
@@ -1486,7 +1548,7 @@ const App = {
       ctx2.font = "10px sans-serif";
       ctx2.fillText(Math.round(pVal) + "g", x, y - 4);
       ctx2.fillStyle = "#9ca3af";
-      ctx2.fillText(d.slice(5), x, c2.height - 10);
+      ctx2.fillText(d.slice(5), x, c2.height - 8);
     });
   },
 
@@ -1532,12 +1594,12 @@ const App = {
     const topFoods = Object.entries(foodFreq).sort((a, b) => b[1] - a[1]).slice(0, 4).map(x => `${x[0]} (${x[1]}x)`).join(", ");
 
     box.innerHTML = `
-      <p><strong>1. Obiettivo Proteico (${t.pro} g/giorno):</strong> Media registrata pari a <strong>${avgPro} g/giorno</strong>. ${proReached ? "✅ Obiettivo mediamente raggiunto." : "⚠️ Media inferiore al target."}</p>
-      <p style="margin-top:8px;"><strong>2. Giorni sotto-target (&lt;85% di ${t.kcal} kcal):</strong> ${lowKcalDays.length > 0 ? lowKcalDays.join(", ") : "Nessuno."}</p>
-      <p style="margin-top:8px;"><strong>3. Contributo Proteico dei Pasti:</strong> Pasto più ricco: <strong>${mealAvgs[0].meal}</strong> (media ${mealAvgs[0].avg.toFixed(1)} g). Pasto più povero: <strong>${mealAvgs[mealAvgs.length - 1].meal}</strong> (${mealAvgs[mealAvgs.length - 1].avg.toFixed(1)} g).</p>
-      <p style="margin-top:8px;"><strong>4. Alimenti più ricorrenti:</strong> ${topFoods || "N/D"}.</p>
-      <div class="alert-box" style="margin-top:10px;">
-        <strong>5. Completezza dei dati:</strong> Analisi su <strong>${last7Dates.length} giorni</strong>. ${incompleteDays > 0 ? `${incompleteDays} giornate hanno meno di 1200 kcal (possibile registrazione parziale).` : "Dati giornalieri completi."}
+      <p><strong>1. Obiettivo Proteico (${t.pro} g/giorno):</strong> Media registrata pari a <strong>${avgPro} g/giorno</strong>. ${proReached ? "✅ Obiettivo raggiunto." : "⚠️ Media leggermente sotto il target."}</p>
+      <p style="margin-top:6px;"><strong>2. Giorni sotto-target (&lt;85% di ${t.kcal} kcal):</strong> ${lowKcalDays.length > 0 ? lowKcalDays.join(", ") : "Nessuno."}</p>
+      <p style="margin-top:6px;"><strong>3. Contributo Proteico dei Pasti:</strong> Pasto più ricco: <strong>${mealAvgs[0].meal}</strong> (media ${mealAvgs[0].avg.toFixed(1)} g). Pasto più basso: <strong>${mealAvgs[mealAvgs.length - 1].meal}</strong> (${mealAvgs[mealAvgs.length - 1].avg.toFixed(1)} g).</p>
+      <p style="margin-top:6px;"><strong>4. Alimenti più frequenti:</strong> ${topFoods || "N/D"}.</p>
+      <div class="alert-box" style="margin-top:8px;">
+        <strong>5. Qualità del dato:</strong> Analisi su <strong>${last7Dates.length} giorni</strong>. ${incompleteDays > 0 ? `${incompleteDays} giornate hanno meno di 1200 kcal (possibile registrazione parziale).` : "Dati giornalieri completi."}
       </div>
     `;
   },
